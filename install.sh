@@ -5,7 +5,7 @@ set -e  # Exit immediately if a command exits with a non-zero status
 # Define the branch name and package name as variables
 BRANCH_NAME="stable-8"  # Adjust this to the correct branch if needed
 PACKAGE_NAME="pve-qemu-kvm"
-REPO_NAME="pve-qemu-kvm-stealth"
+REPO_NAME="pve-qemu-stealth"
 
 # Check for root privileges
 if [ "$EUID" -ne 0 ]; then

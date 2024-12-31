@@ -7,13 +7,13 @@ To install this package, you can use the provided `install.sh` script. This scri
 To run the installation script, execute the following command as root in your terminal:
 
 ```bash
-wget -L https://raw.github.com/behappiness/pve-qemu-kvm-stealth/stable-8/install.sh
+wget -L https://raw.github.com/behappiness/pve-qemu-stealth/stable-8/install.sh
 bash install.sh
 ```
 
 # Make your own changes
 
-You can make your own changes to the package by editing the files in the `pve-qemu-kvm-stealth` directory in the following manner:
+You can make your own changes to the package by editing the files in the `pve-qemu-stealth` directory in the following manner:
 
 1. Clone the repository
 2. Install the dependencies (see in `install.sh`)
