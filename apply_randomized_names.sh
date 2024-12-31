@@ -1,6 +1,12 @@
 export QUILT_PATCHES=../debian/patches
 export QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"
 
+# Check for root privileges
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit 1
+fi
+
 cd qemu
 quilt upgrade
 quilt push -a

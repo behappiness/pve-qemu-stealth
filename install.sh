@@ -19,27 +19,40 @@ apt update -y
 echo "Installing necessary packages..."
 apt install -y git devscripts quilt meson check libacl1-dev libaio-dev libattr1-dev libcap-ng-dev libcurl4-gnutls-dev libepoxy-dev libfdt-dev libgbm-dev libglusterfs-dev libgnutls28-dev libiscsi-dev libjpeg-dev libpci-dev libpixman-1-dev libproxmox-backup-qemu0-dev librbd-dev libsdl1.2-dev libseccomp-dev libslirp-dev libspice-protocol-dev libspice-server-dev libsystemd-dev liburing-dev libusb-1.0-0-dev libusbredirparser-dev libvirglrenderer-dev libzstd-dev python3-sphinx-rtd-theme python3-venv quilt uuid-dev xfslibs-dev
 
-echo "Cloning or updating the repository..."
-if [ ! -d "$REPO_NAME" ]; then
-    git clone https://github.com/behappiness/$REPO_NAME.git
+# Check if we are already inside the repository directory
+if [ ! -d ".git" ]; then
+    echo "Cloning the repository..."
+    if [ ! -d "$REPO_NAME" ]; then
+        git clone https://github.com/behappiness/$REPO_NAME.git
+    fi
+    if [ -f install.sh ]; then
+        rm install.sh
+    fi
+    cd $REPO_NAME
+else
+    echo "Already inside the repository directory."
+    git pull
 fi
-cd $REPO_NAME
-git pull
 
 echo "Checking out the specific branch..."
 git checkout "$BRANCH_NAME"
+
+echo "Creating a fresh build directory..."
+make clean
+
+echo "Removing qemu folder if it exists..."
+if [ -d "qemu" ]; then
+    rm -rf qemu
+    echo "qemu folder has been deleted."
+else
+    echo "qemu folder does not exist."
+fi
 
 echo "Initializing and updating submodules..."
 make submodule
 
 echo "Spoofing all Models & Serial Numbers"
-wget -L https://raw.github.com/behappiness/pve-qemu-stealth/stable-8/apply_randomized_names.sh
 bash apply_randomized_names.sh
-
-echo "Creating a fresh build directory..."
-make clean
-make distclean
-make
 
 echo "Building the package..."
 make
@@ -53,5 +66,10 @@ apt install -f -y
 echo "Freezing the package to prevent updates..."
 apt-mark hold "$PACKAGE_NAME"
 
-echo "Rebooting the system..."
-reboot
+echo "Reboot the system for changes to take effect..."
+read -p "Do you want to reboot the system now? (y/n): " confirm
+if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    reboot
+else
+    echo "Reboot canceled."
+fi

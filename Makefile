@@ -1,6 +1,6 @@
 include /usr/share/dpkg/default.mk
 
-PACKAGE = pve-qemu-kvm-stealth
+PACKAGE = pve-qemu-kvm
 
 SRCDIR := qemu
 BUILDDIR ?= $(PACKAGE)-$(DEB_VERSION_UPSTREAM)
