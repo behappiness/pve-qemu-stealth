@@ -2,6 +2,7 @@ export QUILT_PATCHES=../debian/patches
 export QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"
 
 cd qemu
+quilt upgrade
 quilt push -a
 
 ##################################################
