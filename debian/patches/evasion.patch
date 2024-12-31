@@ -496,26 +496,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
      /* device present, functioning, decoding, not shown in UI */
      aml_append(dev, aml_name_decl("_STA", aml_int(0xB)));
---- a/hw/scsi/mptconfig.c
-+++ b/hw/scsi/mptconfig.c
-@@ -189,12 +189,12 @@
- size_t mptsas_config_manufacturing_0(MPTSASState *s, uint8_t **data, int address)
- {
-     return MPTSAS_CONFIG_PACK(0, MPI_CONFIG_PAGETYPE_MANUFACTURING, 0x00,
--                              "s16s8s16s16s16",
--                              "QEMU MPT Fusion",
-+                              "s10s4s85s45s34",
-++                             "MPT Fusion",
-                               "2.5",
--                              "QEMU MPT Fusion",
--                              "QEMU",
--                              "0000111122223333");
-+                              "MPT Fusion",
-++                             "MSI",
-++                             "7624862998526197");
- }
- 
- static
 --- a/hw/scsi/scsi-bus.c
 +++ b/hw/scsi/scsi-bus.c
 @@ -581,8 +581,8 @@
@@ -1268,3 +1248,23 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      strpadcpy((char *)id->fr, sizeof(id->fr), QEMU_VERSION, ' ');
      strpadcpy((char *)id->sn, sizeof(id->sn), n->params.serial, ' ');
  
+--- a/hw/scsi/mptconfig.c
++++ b/hw/scsi/mptconfig.c
+@@ -189,12 +189,12 @@
+ size_t mptsas_config_manufacturing_0(MPTSASState *s, uint8_t **data, int address)
+ {
+     return MPTSAS_CONFIG_PACK(0, MPI_CONFIG_PAGETYPE_MANUFACTURING, 0x00,
+-                              "s16s8s16s16s16",
+-                              "QEMU MPT Fusion",
++                              "s11s4s51s41s91",
++                              "ASUS MPT Fusion",
+                               "2.5",
+-                              "QEMU MPT Fusion",
+-                              "QEMU",
+-                              "0000111122223333");
++                              "ASUS MPT Fusion",
++                              "ASUS",
++                              "1145141919810000");
+ }
+ 
+ static
