@@ -11,6 +11,8 @@ wget -L https://raw.github.com/behappiness/pve-qemu-stealth/stable-8/install.sh
 bash install.sh
 ```
 
+To update the package, run the script again.
+
 # Make your own changes
 
 You can make your own changes to the package by editing the files in the `pve-qemu-stealth` directory in the following manner:
