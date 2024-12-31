@@ -24,5 +24,6 @@ You can make your own changes to the package by editing the files in the `pve-qe
    - Apply existing patches: `quilt push -a`
    - Make changes to the files as needed
    - Refresh the patches: `quilt refresh`
+   - Clean up the patches: `quilt pop -a`
 5. Run `make clean` and `make distclean` to clean the build directory
 6. Run `make` to build the package

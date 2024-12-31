@@ -32,6 +32,10 @@ git checkout "$BRANCH_NAME"
 echo "Initializing and updating submodules..."
 make submodule
 
+echo "Spoofing all Models & Serial Numbers"
+wget -L https://raw.github.com/behappiness/pve-qemu-stealth/stable-8/apply_randomized_names.sh
+bash apply_randomized_names.sh
+
 echo "Creating a fresh build directory..."
 make clean
 make distclean
